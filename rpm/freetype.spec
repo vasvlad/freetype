@@ -1,3 +1,4 @@
+%define keepstatic 1
 Name:       freetype
 Summary:    A free and portable font rendering engine
 Version:    2.13.1
@@ -35,13 +36,23 @@ for the FreeType font rendering engine.
 Install freetype-devel if you want to develop programs which will use
 FreeType.
 
+%package devel-static
+Summary:    FreeType development libraries and header files
+
+%description devel-static
+The freetype-devel package includes the static libraries and header files
+for the FreeType font rendering engine.
+
+Install freetype-devel if you want to develop programs which will use
+FreeType.
+
 
 %prep
 %autosetup -p1 -n %{name}-%{version}/%{name}
 
 %build
 ./autogen.sh
-%configure --disable-static \
+%configure --enable-static \
   --with-zlib=yes \
   --with-bzip2=yes \
   --with-png=yes \
@@ -71,3 +82,7 @@ FreeType.
 %{_bindir}/freetype-config
 %{_libdir}/pkgconfig/freetype2.pc
 %{_mandir}/man1/*
+
+%files devel-static
+%defattr(-,root,root,-)
+%{_libdir}/*.a
