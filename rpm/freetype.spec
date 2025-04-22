@@ -51,6 +51,7 @@ FreeType.
 %autosetup -p1 -n %{name}-%{version}/%{name}
 
 %build
+export CFLAGS="$RPM_OPT_FLAGS -fPIC"
 ./autogen.sh
 %configure --enable-static \
   --with-zlib=yes \
